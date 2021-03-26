@@ -1,0 +1,6 @@
+infopublic.db
+settings.toml
+config.py
+workspace.code-workspace
+# Ignore dynaconf secret files
+.secrets.*

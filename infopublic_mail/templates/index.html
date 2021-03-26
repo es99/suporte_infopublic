@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block page_header %}
+<h1>Equipes F1</h1>
+{% endblock %}
+{% block page_content %}
+<ul>
+    {% for equipe in equipes %}
+        <li>{{ equipe }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

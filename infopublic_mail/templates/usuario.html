@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+    p.info_user {
+        font-weight: normal;
+        font-size: 22px;
+    }
+</style>
+{% endblock %}
+
+{% block page_header %}
+<h1>{{ nome }} <span style="float: right;">{{ cpf }}</span></h1>
+{% endblock %}
+{% block page_content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+        <p class="info_user">id: {{ id }}</p>
+        {% if email %}
+            <p class="info_user">email: {{ email }}</p>
+        {% endif %}
+        <p class="info_user">senha: {{ senha }}</p>
+        {% if senha_sistema %}
+            <p class="info_user">senha sistema: {{ senha_sistema }}</p>
+        {% endif %}
+        {% if telefone %}
+            <p class="info_user">tel: {{ telefone }}</p>
+        {% endif %}
+        </div>
+        <div class="col-md-6">
+        <table class="table"> 
+            
+            <tbody class="info">
+                {% for entidade in entidades %}
+                    <tr class="info">
+                        <td>{{ entidade[0] }}</td>
+                        <td>{{ entidade[1] }}</td>
+                        <td>{{ entidade[2] }}</td>
+                        <td>{{ entidade[3] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
