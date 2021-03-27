@@ -8,8 +8,7 @@ bp = Blueprint("blueprints", __name__)
 
 @bp.route('/')
 def index():
-    equipes = ['Ferrari', 'Mercedez', 'Red Bull Racing']
-    return render_template('index.html', equipes=equipes)
+    return render_template('index.html')
 
 @bp.route('/user/<int:id>')
 def user(id):
