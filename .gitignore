@@ -2,5 +2,6 @@ infopublic.db
 settings.toml
 config.py
 workspace.code-workspace
+infopublic_mail/developer_test.db
 # Ignore dynaconf secret files
 .secrets.*
