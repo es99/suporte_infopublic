@@ -3,6 +3,7 @@ from infopublic_mail import blueprints
 from infopublic_mail.extensions import bootstrap
 from infopublic_mail.extensions import config
 from infopublic_mail.extensions import db
+from infopublic_mail.extensions import migrate
 
 
 def create_app():
@@ -11,6 +12,7 @@ def create_app():
     blueprints.init_app(app)
     db.init_app(app)
     bootstrap.init_app(app)
+    migrate.init_app(app)
     
 
     return app
