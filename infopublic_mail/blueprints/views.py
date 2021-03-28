@@ -1,14 +1,18 @@
 import os
 from flask import render_template
+import os
 from flask import Blueprint
 from infopublic_mail.extras import functions
+from infopublic_mail.extensions.forms import BuscarForm
 
 
 bp = Blueprint("blueprints", __name__)
 
 @bp.route('/')
 def index():
-    return render_template('index.html')
+    path = os.getcwd()
+    form = BuscarForm()
+    return render_template('index.html', form=form, path=path)
 
 @bp.route('/user/<int:id>')
 def user(id):
