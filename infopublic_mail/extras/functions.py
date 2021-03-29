@@ -5,6 +5,12 @@ def connect(url_db):
     cursor = conn.cursor()
     return cursor
 
+def cpf_retornaId(cursor, cpf):
+    sql = "SELECT id FROM usuarios WHERE cpf='{}'".format(cpf)
+    cursor.execute(sql)
+    id = cursor.fetchone()
+    return id
+
 def consulta_id(cursor, id):
     sql_usuario = "SELECT id, cpf, nome, telefone, email, senha FROM usuarios WHERE id={}".format(id)
     sql_senha_sistema = "SELECT senha_sistema FROM users WHERE user={}".format(id)
