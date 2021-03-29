@@ -1,20 +1,23 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
+{% block title %}Home{% endblock %}
+
 {% block head %}
 {{ super() }}
 <style>
     h1,
     p {
-        margin-left: 25px;
-        color: white;
+        margin-left: 20px;
+        color: black;
     }
     .jumbotron {
-        background-image: url("{{ url_for('static', filename='img/img_suporte_jumbotron.png')}}");
+        background-image: url("{{ url_for('static', filename='img/mulher_empreendedora.jpg')}}");
         background-size: cover;
+        background-position: center;
     }
     #busca_form {
-        color: white;
+        color: black;
     }
 </style>
 {% endblock %}
@@ -22,11 +25,11 @@
 {% block content %}
 <div class="container">
     <div class="jumbotron">
-    <h1 style="color: white;">#Suporte_</h1>
+    <h1 style="color: black;">#Suporte_</h1>
     <p>Envio de emails para clientes cadastrados da Infopublic</p>
-    <div class="container">
+        <div class="container">
         {{ wtf.quick_form(form, id='busca_form') }}
-    </div>
+        </div>
     </div>
 </div>
 {% endblock %}
