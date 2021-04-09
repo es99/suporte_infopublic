@@ -1,4 +1,7 @@
 import sqlite3
+from flask_mail import Message
+from flask import render_template
+from .msg_text_plain import mensagem
 
 def connect(url_db):
     conn = sqlite3.connect(url_db)
@@ -37,4 +40,12 @@ def consulta_id(cursor, id):
                     email=email, senha=senha, senha_sistema=senha_sistema,
                     entidades=entidades)
     
-    return usuario
+    return usuario    
+
+def trata_cpf(cpf):
+    novo_cpf = ''
+    for c in cpf:
+        if (c == '.' or c == '-'):
+            c = ''
+        novo_cpf += c
+    return novo_cpf

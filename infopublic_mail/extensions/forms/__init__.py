@@ -5,3 +5,6 @@ from wtforms.validators import DataRequired
 class BuscarForm(FlaskForm):
     cpf = StringField('CPF para busca: ', validators=[DataRequired()])
     submit = SubmitField('Buscar')
+
+class EnviaButton(FlaskForm):
+    submit = SubmitField('Enviar')

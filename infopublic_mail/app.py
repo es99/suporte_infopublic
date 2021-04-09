@@ -4,6 +4,7 @@ from infopublic_mail.extensions import bootstrap
 from infopublic_mail.extensions import config
 from infopublic_mail.extensions import db
 from infopublic_mail.extensions import migrate
+from infopublic_mail.extensions import email
 
 
 def create_app():
@@ -13,6 +14,7 @@ def create_app():
     db.init_app(app)
     bootstrap.init_app(app)
     migrate.init_app(app)
+    email.init_app(app)
     
 
     return app
