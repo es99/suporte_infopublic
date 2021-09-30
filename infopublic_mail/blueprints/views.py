@@ -1,13 +1,18 @@
 import os
 from flask import Blueprint, redirect, url_for, render_template, flash
 from infopublic_mail.extras import functions, msg_text_plain
-from infopublic_mail.extensions.forms import BuscarForm, EnviaButton
+from infopublic_mail.extensions.forms import BuscarForm, Cadastro, EnviaButton
 from infopublic_mail.extensions.email import send_email
 
 
 
 bp = Blueprint("blueprints", __name__)
 database_name = 'infopublic.db'
+
+@bp.route('/cadastro', methods=['GET', 'POST'])
+def cadastro():
+    form = Cadastro()
+    return render_template('cadastro.html', form=form)
 
 @bp.route('/', methods=['GET', 'POST'])
 def index():
@@ -30,8 +35,8 @@ def user(id):
 
     telefone = None
     email = None
-    senha_sistema = None
     pode_enviar = False
+    senha_sistema = '--'
 
     if usuario['telefone']:
         telefone = usuario['telefone']
@@ -39,7 +44,7 @@ def user(id):
         email = usuario['email']
         pode_enviar = True
     if usuario['senha_sistema']:
-        senha_sistema = usuario['senha_sistema'][0] 
+        senha_sistema = usuario['senha_sistema'][0]
 
     cpf = usuario['cpf']
     user_id = usuario['id']

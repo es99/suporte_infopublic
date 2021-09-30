@@ -1,0 +1,15 @@
+#
+#	Exporta as variaveis de ambiente necessarias para operacao do FLASK
+#	e envio de emails
+#	Author: Engels Souza - 22/09/2021
+#
+echo Setando variaveis de ambiente...
+export FLASK_APP=infopublic_mail/app.py
+echo FLASK_APP=$FLASK_APP
+export FLASK_ENV=development
+echo FLASK_ENV=$FLASK_ENV
+echo Setando variaveis de ambiente do email
+export MAIL_USERNAME=admin@infopublicpb.com.br
+echo MAIL_USERNAME=$MAIL_USERNAME
+export MAIL_PASSWORD=mP83EUd8
+echo MAIL_PASSWORD=$MAIL_PASSWORD
