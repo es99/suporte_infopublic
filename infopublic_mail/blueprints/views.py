@@ -12,7 +12,25 @@ database_name = 'infopublic.db'
 @bp.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
     form = Cadastro()
-    return render_template('cadastro.html', form=form)
+    dados = None
+    if form.validate_on_submit():
+        cpf = form.cpf.data
+        nome = form.nome.data
+        tel = form.telefone.data
+        rg = form.rg.data
+        email = form.email.data
+        senha= form.senha.data
+        ativo = form.ativo.data
+        adm = form.adm.data
+        dados = dict(cpf=cpf, nome=nome, tel=tel, rg=rg, 
+                    email=email, senha=senha, ativo=ativo, adm=adm)
+        cursor = functions.connect(database_name)
+        functions.insere_usuario(cursor, **dados)
+    return render_template('cadastro.html', form=form, dados=dados)
+
+@bp.route('/sucesso/<user>', methods=['GET', 'POST'])
+def sucesso(user, dados):
+    return render_template('sucesso.html', user=user, dados=dados)
 
 @bp.route('/', methods=['GET', 'POST'])
 def index():

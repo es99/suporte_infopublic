@@ -4,6 +4,9 @@ from flask import render_template
 from .msg_text_plain import mensagem
 
 def connect(url_db):
+    """
+    Função que conecta a base de dados
+    """
     conn = sqlite3.connect(url_db)
     cursor = conn.cursor()
     return cursor
@@ -40,8 +43,26 @@ def consulta_id(cursor, id):
                     email=email, senha=senha, senha_sistema=senha_sistema,
                     entidades=entidades)
     
-    return usuario    
+    return usuario 
 
+def insere_usuario(cursor, **kwargs):
+    lista = []
+    sql = "INSERT INTO usuarios \
+            (cpf, nome, telefone, RG, email, senha, ativo, adm) \
+            VALUES (%s, %s, %s, %s, %s, %s, %d, %d)"
+    if kwargs['ativo']:
+        kwargs['ativo'] = 1
+    else:
+        kwargs['ativo'] = 0
+    if kwargs['adm']:
+        kwargs['adm'] = 1
+    else:
+        kwargs['adm'] = 0
+    for valor in kwargs.values():
+        lista += [valor]
+    valores = tuple(lista)
+    cursor.execute(sql, valores)
+    
 def trata_cpf(cpf):
     novo_cpf = ''
     for c in cpf:
