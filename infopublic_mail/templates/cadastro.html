@@ -3,8 +3,24 @@
 
 {% block title %}Cadastro{% endblock %}
 {% block page_header %}
+<div class="container">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
     <h1>Cadastro de Usuário</h1>
 {% endblock %}
 {% block page_content %}
-    {{ wtf.quick_form(form) }}
+    {% if dados %}
+        <ul>
+        {% for k, v in dados.items() %}
+            <li>{{ k, v }}</li>
+        </ul>
+        {% endfor %}
+    {% else %}
+        {{ wtf.quick_form(form) }}
+    {% endif %}
 {% endblock %}
