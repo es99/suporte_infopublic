@@ -9,7 +9,7 @@ def connect(url_db):
     """
     conn = sqlite3.connect(url_db)
     cursor = conn.cursor()
-    return cursor
+    return cursor, conn
 
 def cpf_retornaId(cursor, cpf):
     sql = "SELECT id FROM usuarios WHERE cpf='{}'".format(cpf)
@@ -45,11 +45,7 @@ def consulta_id(cursor, id):
     
     return usuario 
 
-def insere_usuario(cursor, **kwargs):
-    lista = []
-    sql = "INSERT INTO usuarios \
-            (cpf, nome, telefone, RG, email, senha, ativo, adm) \
-            VALUES (%s, %s, %s, %s, %s, %s, %d, %d)"
+def insere_usuario(cursor, conn, **kwargs):
     if kwargs['ativo']:
         kwargs['ativo'] = 1
     else:
@@ -58,11 +54,20 @@ def insere_usuario(cursor, **kwargs):
         kwargs['adm'] = 1
     else:
         kwargs['adm'] = 0
-    for valor in kwargs.values():
-        lista += [valor]
-    valores = tuple(lista)
-    cursor.execute(sql, valores)
+
+    sql = f"""INSERT INTO usuarios \
+            (cpf, nome, telefone, RG, email, senha, ativo, adm, data_cadastro) \
+            VALUES ("{kwargs['cpf']}", "{kwargs['nome']}", "{kwargs['tel']}", \
+                "{kwargs['rg']}", "{kwargs['email']}", "{kwargs['senha']}", \
+                    "{kwargs['ativo']}", "{kwargs['adm']}", "{kwargs['data']}")"""
     
+    try:
+        cursor.execute(sql)
+        conn.commit()
+        return True
+    except:
+        return False
+
 def trata_cpf(cpf):
     novo_cpf = ''
     for c in cpf:

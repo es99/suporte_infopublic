@@ -3,6 +3,7 @@ from flask import Blueprint, redirect, url_for, render_template, flash
 from infopublic_mail.extras import functions, msg_text_plain
 from infopublic_mail.extensions.forms import BuscarForm, Cadastro, EnviaButton
 from infopublic_mail.extensions.email import send_email
+from datetime import datetime
 
 
 
@@ -22,10 +23,18 @@ def cadastro():
         senha= form.senha.data
         ativo = form.ativo.data
         adm = form.adm.data
+        d = datetime.now()
+        data = d.strftime("%d-%m-%Y - %H:%M")
         dados = dict(cpf=cpf, nome=nome, tel=tel, rg=rg, 
-                    email=email, senha=senha, ativo=ativo, adm=adm)
-        cursor = functions.connect(database_name)
-        functions.insere_usuario(cursor, **dados)
+                    email=email, senha=senha, ativo=ativo, adm=adm, data=data)
+        cursor, conn = functions.connect(database_name)
+
+        if functions.insere_usuario(cursor, conn, **dados):
+            flash("Usuário cadastrado com sucesso!")
+        else:
+            flash("Erro ao cadastrar usuário")
+
+        return redirect(url_for('blueprints.cadastro'))
     return render_template('cadastro.html', form=form, dados=dados)
 
 @bp.route('/sucesso/<user>', methods=['GET', 'POST'])
