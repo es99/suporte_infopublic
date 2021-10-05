@@ -46,7 +46,7 @@ def index():
     form = BuscarForm()
     if form.validate_on_submit():
         cpf = form.cpf.data
-        cursor = functions.connect(database_name)
+        cursor, _ = functions.connect(database_name)
         user_id = functions.cpf_retornaId(cursor, cpf)
         if user_id != None:
             return redirect(url_for('blueprints.user', id=user_id[0]))
@@ -57,7 +57,7 @@ def index():
 @bp.route('/user/<int:id>', methods=['GET', 'POST'])
 def user(id):
     form = EnviaButton()
-    cursor = functions.connect(database_name)
+    cursor, _ = functions.connect(database_name)
     usuario = functions.consulta_id(cursor, id)
 
     telefone = None
