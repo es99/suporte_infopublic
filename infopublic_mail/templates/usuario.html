@@ -62,7 +62,7 @@
                 {% endfor %}
                 <tr>
                     <td>Cadastrar entidade para <strong>{{ nome }}</strong></td>
-                    <td><button type="button">Entidade</button></td>
+                    <td><button type="button" onclick="mostraForm()" id="demo">Entidade</button></td>
                 </tr>
             </tbody>
         </table>
@@ -73,5 +73,21 @@
            {{ wtf.quick_form(form) }}
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-6" style="float: right;" id="form_cadastro" hidden>
+            {{ wtf.quick_form(form2) }}
+        </div>
+    </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById("demo").onclick = mostraForm;
+    
+    function mostraForm(){
+        document.getElementById("form_cadastro").hidden = false;
+    }
+        
+</script>
 {% endblock %}

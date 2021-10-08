@@ -1,7 +1,7 @@
 import os
 from flask import Blueprint, redirect, url_for, render_template, flash
 from infopublic_mail.extras import functions, msg_text_plain
-from infopublic_mail.extensions.forms import BuscarForm, Cadastro, EnviaButton
+from infopublic_mail.extensions.forms import BuscarForm, Cadastro, EnviaButton, Cadastro_user_entidade
 from infopublic_mail.extensions.email import send_email
 from datetime import datetime
 
@@ -57,6 +57,7 @@ def index():
 @bp.route('/user/<int:id>', methods=['GET', 'POST'])
 def user(id):
     form = EnviaButton()
+    form2 = Cadastro_user_entidade()
     cursor, _ = functions.connect(database_name)
     usuario = functions.consulta_id(cursor, id)
 
@@ -91,4 +92,4 @@ def user(id):
 
     return render_template('usuario.html', id=user_id, email=email, senha=senha, entidades=entidades,
                         senha_sistema=senha_sistema, nome=nome, cpf=cpf, telefone=telefone, form=form,
-                        pode_enviar=pode_enviar)
+                        pode_enviar=pode_enviar, form2=form2)
