@@ -45,6 +45,14 @@ def consulta_id(cursor, id):
     
     return usuario 
 
+def insere_entidade_usuario(cursor, conn, **kwargs):
+    sql = f"""INSERT INTO users \
+            (user, senha_sistema, entidade) \
+            VALUES ({kwargs['id_user']}, "{kwargs['senha']}", {kwargs['entidade']})
+        """
+    cursor.execute(sql)
+    conn.commit()
+
 def insere_usuario(cursor, conn, **kwargs):
     if kwargs['ativo']:
         kwargs['ativo'] = 1

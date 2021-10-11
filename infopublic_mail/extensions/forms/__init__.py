@@ -23,6 +23,5 @@ class Cadastro(FlaskForm):
 
 class Cadastro_user_entidade(FlaskForm):
     entidade = IntegerField('ID da entidade:', validators=[DataRequired(), InputRequired()])
-    senha_sistema = StringField('Senha do sistema:', validators=[Optional(), EqualTo('confirme', message='Senhas devem ser iguais')])
-    confirme = StringField('Repetir Senha:', validators=[Optional()])
+    senha_sistema = StringField('Senha do sistema:', validators=[Optional()])
     submit = SubmitField('Cadastrar')

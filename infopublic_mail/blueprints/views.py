@@ -37,10 +37,6 @@ def cadastro():
         return redirect(url_for('blueprints.cadastro'))
     return render_template('cadastro.html', form=form, dados=dados)
 
-@bp.route('/sucesso/<user>', methods=['GET', 'POST'])
-def sucesso(user, dados):
-    return render_template('sucesso.html', user=user, dados=dados)
-
 @bp.route('/', methods=['GET', 'POST'])
 def index():
     form = BuscarForm()
@@ -58,7 +54,7 @@ def index():
 def user(id):
     form = EnviaButton()
     form2 = Cadastro_user_entidade()
-    cursor, _ = functions.connect(database_name)
+    cursor, conn = functions.connect(database_name)
     usuario = functions.consulta_id(cursor, id)
 
     telefone = None
@@ -79,6 +75,14 @@ def user(id):
     nome = usuario['nome']
     senha = usuario['senha']
     entidades = usuario['entidades']
+
+    if form2.validate_on_submit():
+        entidade = form2.entidade.data
+        senha_sistema = form2.senha_sistema.data
+        dados = dict(id_user=id, entidade=entidade, senha=senha_sistema)
+
+        functions.insere_entidade_usuario(cursor, conn, **dados)  
+        return redirect(url_for('blueprints.user', id=id))
 
     if form.validate_on_submit():
         if pode_enviar:
