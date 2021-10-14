@@ -50,8 +50,12 @@ def insere_entidade_usuario(cursor, conn, **kwargs):
             (user, senha_sistema, entidade) \
             VALUES ({kwargs['id_user']}, "{kwargs['senha']}", {kwargs['entidade']})
         """
-    cursor.execute(sql)
-    conn.commit()
+    try:
+        cursor.execute(sql)
+        conn.commit()
+        return True
+    except:
+        return False
 
 def insere_usuario(cursor, conn, **kwargs):
     if kwargs['ativo']:

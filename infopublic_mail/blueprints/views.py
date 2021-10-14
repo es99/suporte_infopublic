@@ -1,8 +1,9 @@
 import os
 from flask import Blueprint, redirect, url_for, render_template, flash
-from infopublic_mail.extras import functions, msg_text_plain
+from infopublic_mail.extras import functions
 from infopublic_mail.extensions.forms import BuscarForm, Cadastro, EnviaButton, Cadastro_user_entidade
 from infopublic_mail.extensions.email import send_email
+from infopublic_mail.extensions.db import Enviados, db
 from datetime import datetime
 
 
@@ -81,13 +82,19 @@ def user(id):
         senha_sistema = form2.senha_sistema.data
         dados = dict(id_user=id, entidade=entidade, senha=senha_sistema)
 
-        functions.insere_entidade_usuario(cursor, conn, **dados)  
+        if functions.insere_entidade_usuario(cursor, conn, **dados):
+            flash(f'Entidade cadastrada com sucesso para {nome}')
+        else:
+            flash('Erro ao cadastrar entidade.') 
         return redirect(url_for('blueprints.user', id=id))
 
     if form.validate_on_submit():
         if pode_enviar:
             cpf_tratado = functions.trata_cpf(cpf)
             send_email(email, nome, cpf_tratado, senha, senha_sistema)
+            email_enviado = Enviados(cpf=cpf_tratado, email=email)
+            db.session.add(email_enviado)
+            db.session.commit()
             flash('Mensagem enviada para {}'.format(email))
         else:
             flash('O campo email do usuário está vazio!')
