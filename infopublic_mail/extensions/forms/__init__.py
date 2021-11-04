@@ -17,6 +17,8 @@ class Cadastro(FlaskForm):
     email = StringField('Email:', validators=[Email(), Optional()])
     senha = StringField('Senha:', validators=[InputRequired(), EqualTo('confirme', message='Senhas devem ser iguais')])
     confirme = StringField('Repetir Senha:')
+    cadastrado = BooleanField('Usuário já encontra-se cadastrado no servidor?',
+                                validators=[Optional()])
     ativo = BooleanField('Usuário ativo no sistema?', validators=[Optional()])
     adm = BooleanField('Administrador?', validators=[Optional()])
     submit = SubmitField('Cadastrar')

@@ -24,18 +24,21 @@ def cadastro():
         senha= form.senha.data
         ativo = form.ativo.data
         adm = form.adm.data
+        cadastrado = form.cadastrado.data
         d = datetime.now()
         data = d.strftime("%d-%m-%Y - %H:%M")
         dados = dict(cpf=cpf, nome=nome, tel=tel, rg=rg, 
-                    email=email, senha=senha, ativo=ativo, adm=adm, data=data)
+                    email=email, senha=senha, ativo=ativo, adm=adm, data=data,
+                                                        cadastrado=cadastrado)
         cursor, conn = functions.connect(database_name)
-
+        
         if functions.insere_usuario(cursor, conn, **dados):
             flash("Usuário cadastrado com sucesso!")
         else:
             flash("Erro ao cadastrar usuário")
-
+    
         return redirect(url_for('blueprints.cadastro'))
+        
     return render_template('cadastro.html', form=form, dados=dados)
 
 @bp.route('/', methods=['GET', 'POST'])

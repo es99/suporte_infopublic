@@ -66,20 +66,25 @@ def insere_usuario(cursor, conn, **kwargs):
         kwargs['adm'] = 1
     else:
         kwargs['adm'] = 0
+    if kwargs['cadastrado']:
+        kwargs['cadastrado'] = 1
+    else:
+        kwargs['cadastrado'] = 0
 
     sql = f"""INSERT INTO usuarios \
-            (cpf, nome, telefone, RG, email, senha, ativo, adm, data_cadastro) \
+            (cpf, nome, telefone, RG, email, senha, ativo, adm, data_cadastro, cadastrado) \
             VALUES ("{kwargs['cpf']}", "{kwargs['nome']}", "{kwargs['tel']}", \
                 "{kwargs['rg']}", "{kwargs['email']}", "{kwargs['senha']}", \
-                    "{kwargs['ativo']}", "{kwargs['adm']}", "{kwargs['data']}")"""
-    
+                    "{kwargs['ativo']}", "{kwargs['adm']}", "{kwargs['data']}", \
+                        "{kwargs['cadastrado']}")"""
+
     try:
         cursor.execute(sql)
         conn.commit()
         return True
     except:
         return False
-
+    
 def trata_cpf(cpf):
     novo_cpf = ''
     for c in cpf:
