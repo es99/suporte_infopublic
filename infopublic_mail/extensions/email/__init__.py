@@ -1,3 +1,4 @@
+from threading import Thread
 from flask_mail import Mail, Message
 from flask import render_template
 from infopublic_mail.extras import  msg_text_plain
@@ -6,6 +7,10 @@ mail = Mail()
 
 def init_app(app):
     mail.init_app(app)
+
+def send_async_email(app, msg):
+    pass
+
 
 def send_email(to, nome, cpf, senha, senha_sistema):
     subject = '[Suporte Infopublic] - Dados de Acesso'
