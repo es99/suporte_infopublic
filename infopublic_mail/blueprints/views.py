@@ -5,13 +5,16 @@ from infopublic_mail.extensions.forms import BuscarForm, Cadastro, EnviaButton, 
 from infopublic_mail.extensions.email import send_email
 from infopublic_mail.extensions.db import Enviados, db
 from datetime import datetime
+from flask_login import login_required
 
 
 
 bp = Blueprint("blueprints", __name__)
 database_name = 'infopublic.db'
 
+
 @bp.route('/cadastro', methods=['GET', 'POST'])
+@login_required
 def cadastro():
     form = Cadastro()
     dados = None
