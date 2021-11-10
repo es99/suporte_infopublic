@@ -14,7 +14,6 @@ database_name = 'infopublic.db'
 
 
 @bp.route('/cadastro', methods=['GET', 'POST'])
-@login_required
 def cadastro():
     form = Cadastro()
     dados = None
