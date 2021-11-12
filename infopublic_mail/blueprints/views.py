@@ -1,5 +1,6 @@
 import os
 from flask import Blueprint, redirect, url_for, render_template, flash
+from infopublic_mail.extensions import login
 from infopublic_mail.extras import functions
 from infopublic_mail.extensions.forms import BuscarForm, Cadastro, EnviaButton, Cadastro_user_entidade
 from infopublic_mail.extensions.email import send_email
@@ -8,12 +9,12 @@ from datetime import datetime
 from flask_login import login_required
 
 
-
 bp = Blueprint("blueprints", __name__)
 database_name = 'infopublic.db'
 
 
 @bp.route('/cadastro', methods=['GET', 'POST'])
+@login_required
 def cadastro():
     form = Cadastro()
     dados = None
@@ -44,6 +45,7 @@ def cadastro():
     return render_template('cadastro.html', form=form, dados=dados)
 
 @bp.route('/', methods=['GET', 'POST'])
+@login_required
 def index():
     form = BuscarForm()
     if form.validate_on_submit():
@@ -57,6 +59,7 @@ def index():
     return render_template('index.html', form=form)
 
 @bp.route('/user/<int:id>', methods=['GET', 'POST'])
+@login_required
 def user(id):
     form = EnviaButton()
     form2 = Cadastro_user_entidade()
