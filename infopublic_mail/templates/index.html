@@ -24,20 +24,30 @@
 
 {% block content %}
 <div class="container">
-    <p style="text-align: center;">Clock In realizado: </p>
-    <div class="jumbotron">
-        <p>
+    <div class="row">
+        <div class="jumbotron">
+            <div class="row">
+                <p>
             Olá,
         {% if current_user.is_authenticated %}
             <strong>{{ current_user.username }}</strong>
         {% else %}
             <strong>Anônimo</strong>
         {% endif %}
-        </p>
-        <h1 style="color: black;">#Suporte_</h1>
-        <p>Envio de emails para clientes cadastrados da Infopublic</p>
-        <div class="container">
-            {{ wtf.quick_form(form, id='busca_form') }}
+                </p>
+            </div>
+            <div class="row">
+                <h1 style="color: black;">#Suporte_ Info</h1>
+                <p>Envio de emails para clientes cadastrados da Infopublic</p>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ wtf.quick_form(form, id='busca_form') }}
+                </div>
+            </div>
+            <div class="row" style="text-align: right;">
+                <strong>{{ moment(current_time).format('LLL') }}</strong>
+            </div>
         </div>
     </div>
 </div>
