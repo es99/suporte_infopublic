@@ -26,6 +26,8 @@ def consulta_id(cursor, id):
 	                    WHEN entidades.local = 1 THEN 'Server RD' \
 	                    WHEN entidades.local = 2 THEN '50025 - TsNovo' \
 	                    WHEN entidades.local = 3 THEN 'TS-Hostdime' \
+                        WHEN entidades.local = 5 THEN 'Sistema Local' \
+                        WHEN entidades.local = 9 THEN 'Todos os sistemas - Infopublic' \
                     END AS Local \
                     FROM sistemas \
                     INNER JOIN entidades ON sistemas.id = entidades.sistema \

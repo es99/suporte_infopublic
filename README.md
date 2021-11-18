@@ -2,7 +2,8 @@
 
 Realizar as seguintes correções:
 
-1. Retirar o 'None' que aparecem em 'Senha sistema' para usuários que não possuem a senha do sistema,
-   isto poderá ocasionar dúvidas e induzir o usuário a achar que é a senha dele.
-2. Adicionar um try-except na função de envio de emails, informando em mensagem flash caso ocorra erro
-   no envio de emails.
+1. Corrigir a exibição de sistemas locais no cadastro do usuário
+2. Implantar formulário de login
+3. Tratar nomes e endereços de email em maiusculo.
+4. Mensagem FLASH que não some em /user/id
+5. Tratar o erro com try/except caso não consiga se conectar ao BD (por exemplo, ao enviar emails e salvar no bd 'emails enviados' o registro)

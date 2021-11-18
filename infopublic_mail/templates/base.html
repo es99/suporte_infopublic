@@ -23,7 +23,13 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="{{ url_for('blueprints.index') }}" style="color: white;">Home</a></li>
-                <li><a href="{{ url_for('blueprints.cadastro') }}" style="color: white;">Cadastro</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">    
+                {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>
