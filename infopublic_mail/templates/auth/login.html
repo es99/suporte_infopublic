@@ -10,7 +10,13 @@
     </div>
     {% endfor %}
 </div>
-<h1>Login</h1>
+<div class="container">
+    <h1>Login</h1>
+    <p>
+        Novo Usuário?
+        <a href="{{ url_for('auth.register') }}">Clique aqui para registrar!</a>
+    </p>
+</div>
 {% endblock %}
 
 {% block page_content %}

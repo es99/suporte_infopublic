@@ -25,10 +25,18 @@
 {% block content %}
 <div class="container">
     <div class="jumbotron">
-    <h1 style="color: black;">#Suporte_</h1>
-    <p>Envio de emails para clientes cadastrados da Infopublic</p>
+        <p>
+            Olá,
+        {% if current_user.is_authenticated %}
+            <strong>{{ current_user.username }}</strong>
+        {% else %}
+            <strong>Anônimo</strong>
+        {% endif %}
+        </p>
+        <h1 style="color: black;">#Suporte_</h1>
+        <p>Envio de emails para clientes cadastrados da Infopublic</p>
         <div class="container">
-        {{ wtf.quick_form(form, id='busca_form') }}
+            {{ wtf.quick_form(form, id='busca_form') }}
         </div>
     </div>
 </div>
