@@ -56,7 +56,7 @@ def index():
             return redirect(url_for('blueprints.user', id=user_id[0]))
         else:
             return render_template('404.html'), 404 
-    return render_template('index.html', form=form)
+    return render_template('index.html', form=form, current_time=datetime.utcnow())
 
 @bp.route('/user/<int:id>', methods=['GET', 'POST'])
 @login_required

@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, request, url_for, flash
 from infopublic_mail.blueprints.auth.forms import LoginForm, RegistrationForm
 from infopublic_mail.extensions.db import User, db
 from flask_login import login_user, logout_user, login_required
+from datetime import datetime
 
 auth = Blueprint('auth', __name__)
 

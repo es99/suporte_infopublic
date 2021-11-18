@@ -7,6 +7,7 @@ from infopublic_mail.extensions import db
 from infopublic_mail.extensions import migrate
 from infopublic_mail.extensions import email
 from infopublic_mail.extensions import login
+from infopublic_mail.extensions import moment
 
 
 def create_app(config_name):
@@ -21,6 +22,7 @@ def create_app(config_name):
     bootstrap.init_app(app)
     migrate.init_app(app)
     email.init_app(app)
+    moment.init_app(app)
     
 
     return app
