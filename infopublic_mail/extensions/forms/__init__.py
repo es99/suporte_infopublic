@@ -1,9 +1,12 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, BooleanField, IntegerField
-from wtforms.validators import DataRequired, Email, Optional, InputRequired, EqualTo
+from wtforms.validators import DataRequired, Email, Optional, InputRequired, EqualTo, Regexp
 
 class BuscarForm(FlaskForm):
-    cpf = StringField('CPF para busca: ', validators=[DataRequired()])
+    cpf = StringField('CPF para busca: ', validators=[DataRequired(), 
+                        Regexp('[0-9]{3}[\.][0-9]{3}[\.][0-9]{3}[-][0-9]{2}', 0,
+                        'Digite o cpf separados por pontos e traço, ex: 000.000.000-00')],
+                        description='Ex: 000.000.000-00')
     submit = SubmitField('Buscar')
 
 class EnviaButton(FlaskForm):

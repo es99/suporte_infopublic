@@ -30,8 +30,11 @@ class Role(db.Model):
 class User(db.Model, UserMixin):
     __tablename__ = 'infopublic_acessos'
     id = db.Column(db.Integer, primary_key=True)
+    cpf = db.Column(db.String(64), unique=True, index=True)
+    nome = db.Column(db.String(64), unique=False, index=True)
+    sobrenome = db.Column(db.String(64), unique=False, index=True)
     email = db.Column(db.String(64), unique=True, index=True)
-    username = db.Column(db.String(64), unique=True, index=True)
+    telefone = db.Column(db.String(64), unique=False, index=True)
     password_hash = db.Column(db.String(128))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
 

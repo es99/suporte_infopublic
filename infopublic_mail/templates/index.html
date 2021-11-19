@@ -30,7 +30,7 @@
                 <p>
             Olá,
         {% if current_user.is_authenticated %}
-            <strong>{{ current_user.username }}</strong>
+            <strong>{{ current_user.nome }}</strong>!
         {% else %}
             <strong>Anônimo</strong>
         {% endif %}

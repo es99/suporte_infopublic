@@ -10,7 +10,7 @@ auth = Blueprint('auth', __name__)
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        user = User.query.filter_by(cpf=form.cpf.data).first()
         if user is not None and user.verify_password(form.password.data):
             login_user(user, form.remember_me.data)
             next = request.args.get('next')
@@ -25,7 +25,10 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(email=form.email.data,
-                    username=form.username.data,
+                    cpf=form.cpf.data,
+                    nome=form.nome.data,
+                    sobrenome=form.sobrenome.data,
+                    telefone=form.celular.data,
                     password=form.password.data)
         db.session.add(user)
         db.session.commit()
