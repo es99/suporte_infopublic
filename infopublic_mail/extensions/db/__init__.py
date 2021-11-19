@@ -28,7 +28,7 @@ class Role(db.Model):
         return f'Role {self.name}'
 
 class User(db.Model, UserMixin):
-    __tablename__ = 'infopublic_acessos'
+    __tablename__ = 'usuarios'
     id = db.Column(db.Integer, primary_key=True)
     cpf = db.Column(db.String(64), unique=True, index=True)
     nome = db.Column(db.String(64), unique=False, index=True)
@@ -37,6 +37,7 @@ class User(db.Model, UserMixin):
     telefone = db.Column(db.String(64), unique=False, index=True)
     password_hash = db.Column(db.String(128))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    tickets = db.relationship('Ticket', backref='user')
 
     def __repr__(self):
         return f'User {self.username}, email: {self.email}'
@@ -55,3 +56,28 @@ class User(db.Model, UserMixin):
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+class Ticket(db.Model):
+    __tablename__ = "tickets"
+    id = db.Column(db.Integer, primary_key=True)
+    fechado = db.Column(db.Boolean, default=False)
+    andamento = db.Column(db.Boolean, default=False)
+    date = db.Column(db.Date, index=True)
+    hora = db.Column(db.Time, index=True)
+    intervalo = db.Column(db.Interval)
+    cpf = db.Column(db.String(64), unique=True, index=True, nullable=False)
+    nome = db.Column(db.String(64), unique=False, index=True, nullable=False)
+    sistema = db.Column(db.String(64), unique=False, index=True)
+    entidade = db.Column(db.String(120))
+    assunto = db.Column(db.String(120), unique=False, index=True)
+    descricao = db.Column(db.Text, unique=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('usuarios.id'))
+
+    def __repr__(self):
+        return f'Ticket id: {self.id}'
+
+    def valida_fechamento(self):
+        if self.fechado:
+            self.andamento = False
+            return True
+        

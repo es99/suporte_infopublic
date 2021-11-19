@@ -3,7 +3,6 @@ from wtforms import StringField, SubmitField, SelectField, TextAreaField, FileFi
 from wtforms.validators import DataRequired, Optional
 
 class TicketForm(FlaskForm):
-    cpf = StringField('CPF:', validators=[DataRequired()])
     sistema = SelectField('Sistema:', choices=[
         ('PJPCTB', 'CONTABILIDADE'), 
         ('PJFOLHA', 'FOLHA'),
@@ -18,5 +17,4 @@ class TicketForm(FlaskForm):
                             description='exemplo: Cras Picui, Camara Umbuzeiro, PM Mari')
     assunto = StringField('Assunto:', validators=[DataRequired()])
     descricao = TextAreaField('Descrição detalhada do problema', validators=[DataRequired()])
-    foto = FileField('Anexar foto (Opcional)', validators=[Optional()])
     submit = SubmitField('Abrir ticket')
