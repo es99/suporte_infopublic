@@ -1,9 +1,45 @@
 {% extends "tickets/tickets.html" %}
 
 {% block page_header%}
-    <h1>Tickets em aberto</h1>
+    <h1>Tickets em aberto - {{ numero }}</h1>
 {% endblock %}
 
 {% block page_content %}
-    <p>Em construção</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id do ticket</th>
+                <th>Data de abertura</th>
+                <th>Hora</th>
+                <th>Assunto</th>
+                <th>Sistema</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody class="info">
+            {% for ticket in tickets %}
+                {% if ticket.andamento %}
+                    <tr>
+                    <td>{{ ticket.id }}</td>
+                    <td>{{ ticket.date }}</td>
+                    <td>{{ ticket.hora }}</td>
+                    <td>{{ ticket.assunto }}</td>
+                    <td>{{ ticket.sistema }}</td>
+                    <td>Em andamento</td>
+                    <td><a href="{{ url_for('ticket.verifica_ticket_aberto', id=ticket.id) }}">Verificar</a></td>
+                    </tr>
+                {% else %}
+                <tr>
+                    <td>{{ ticket.id }}</td>
+                    <td>{{ ticket.date }}</td>
+                    <td>{{ ticket.hora }}</td>
+                    <td>{{ ticket.assunto }}</td>
+                    <td>{{ ticket.sistema }}</td>
+                    <td>Aberto</td>
+                    <td><a href="{{ url_for('ticket.verifica_ticket_aberto', id=ticket.id) }}">Verificar</a></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

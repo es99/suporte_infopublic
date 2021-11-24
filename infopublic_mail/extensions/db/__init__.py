@@ -37,7 +37,7 @@ class User(db.Model, UserMixin):
     telefone = db.Column(db.String(64), unique=False, index=True)
     password_hash = db.Column(db.String(128))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
-    tickets = db.relationship('Ticket', backref='user')
+    tickets = db.relationship('Ticket', backref='user', lazy='dynamic')
 
     def __repr__(self):
         return f'User {self.username}, email: {self.email}'
@@ -63,14 +63,15 @@ class Ticket(db.Model):
     fechado = db.Column(db.Boolean, default=False)
     andamento = db.Column(db.Boolean, default=False)
     date = db.Column(db.Date, index=True)
-    hora = db.Column(db.Time, index=True)
+    hora = db.Column(db.String(20), nullable=True)
     intervalo = db.Column(db.Interval)
-    cpf = db.Column(db.String(64), unique=True, index=True, nullable=False)
+    cpf = db.Column(db.String(64), index=True, nullable=False)
     nome = db.Column(db.String(64), unique=False, index=True, nullable=False)
     sistema = db.Column(db.String(64), unique=False, index=True)
     entidade = db.Column(db.String(120))
     assunto = db.Column(db.String(120), unique=False, index=True)
     descricao = db.Column(db.Text, unique=False)
+    solucao = db.Column(db.Text, unique=False, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('usuarios.id'))
 
     def __repr__(self):

@@ -1,0 +1,31 @@
+{% extends "tickets/tickets.html" %}
+
+{% block page_header %}
+    <h2>Ticket Id: {{ id }}</h2>
+    <h2>{{ entidade }}</h2>
+{% endblock %}
+{% block page_content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Data:</strong> {{ data }}</p>
+                <p><strong>Hora:</strong> {{ hora }}</p>
+                <p><strong>Resp:</strong> {{ nome }}</p>
+                <p><strong>Assunto:</strong> {{ assunto }}</p>
+                <p><strong>Sistema:</strong> {{ sistema }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Descrição do problema:</strong> </p>
+                <p>{{ descricao }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <h3>Resposta do Suporte: </h3>
+            {% if solucao %}
+                <p>{{ solucao }}</p>
+            {% else %}
+                <p>Ainda sem resposta do suporte técnico.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
