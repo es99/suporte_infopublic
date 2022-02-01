@@ -55,9 +55,10 @@ def verifica_ticket_aberto(id):
     descricao = ticket.descricao
     solucao = ticket.solucao
     nome = ticket.nome
+    cpf = ticket.cpf
     return render_template('tickets/verifica_ticket.html', id=id, data=data,
                         hora=hora, sistema=sistema, entidade=entidade, assunto=assunto,
-                        descricao=descricao, solucao=solucao, nome=nome)
+                        descricao=descricao, solucao=solucao, nome=nome, cpf=cpf)
 
 @ticket.route('/tickets/fechados')
 @login_required

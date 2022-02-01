@@ -11,7 +11,7 @@
         margin-left: 20px;
         color: black;
     }
-    .jumbotron {
+    #cpf_busca {
         background-image: url("{{ url_for('static', filename='img/mulher_empreendedora.jpg')}}");
         background-size: cover;
         background-position: center;
@@ -19,13 +19,23 @@
     #busca_form {
         color: black;
     }
+    #tickets {
+        background-image: url("{{ url_for('static', filename='img/mulher_branca.jpg')}}");
+        background-size: cover;
+        background-position: center;
+    }
+    #servidores{
+        background-image: url("{{ url_for('static', filename='img/servidors.jpeg') }}");
+        background-size: cover;
+        background-position: center;
+    }
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="jumbotron">
+        <div class="jumbotron" id="cpf_busca">
             <div class="row">
                 <p>
             Olá,
@@ -47,6 +57,40 @@
             </div>
             <div class="row" style="text-align: right;">
                 <strong>{{ moment(current_time).format('LLL') }}</strong>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="jumbotron" id="servidores">
+            <div class="container-fluid">
+                <div class="row">
+                    <p style="text-align: center; color: white;">Pesquisa por servidores</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="text-align: center; color: white;">ts01-Hostdime</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p style="text-align: center; color: white;">ts02-50025</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p style="text-align: center; color: white;">RD_Server</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="jumbotron" id="tickets">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p style="text-align: center;">Tickets em aberto: {{ num_abertos }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p style="text-align: center;">Tickets fechados: {{ num_fechados }}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

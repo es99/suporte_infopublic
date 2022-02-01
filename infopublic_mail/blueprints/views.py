@@ -4,7 +4,7 @@ from infopublic_mail.extensions import login
 from infopublic_mail.extras import functions
 from infopublic_mail.extensions.forms import BuscarForm, Cadastro, EnviaButton, Cadastro_user_entidade
 from infopublic_mail.extensions.email import send_email
-from infopublic_mail.extensions.db import Enviados, db
+from infopublic_mail.extensions.db import Enviados, db, Ticket
 from datetime import datetime
 from flask_login import login_required
 
@@ -48,6 +48,14 @@ def cadastro():
 @login_required
 def index():
     form = BuscarForm()
+    tickets = Ticket.query.all()
+    num_abertos = []
+    num_fechados = []
+    for ticket in tickets:
+        if ticket.fechado:
+            num_fechados.append(ticket)
+        else:
+            num_abertos.append(ticket)
     if form.validate_on_submit():
         cpf = form.cpf.data
         cursor, _ = functions.connect(database_name)
@@ -56,7 +64,8 @@ def index():
             return redirect(url_for('blueprints.user', id=user_id[0]))
         else:
             return render_template('404.html'), 404 
-    return render_template('index.html', form=form, current_time=datetime.utcnow())
+    return render_template('index.html', form=form, current_time=datetime.utcnow(),
+                            num_abertos=len(num_abertos), num_fechados=len(num_fechados))
 
 @bp.route('/user/<int:id>', methods=['GET', 'POST'])
 @login_required
