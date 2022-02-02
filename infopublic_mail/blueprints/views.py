@@ -1,5 +1,6 @@
 import os
 from flask import Blueprint, redirect, url_for, render_template, flash
+from infopublic_mail.blueprints.servidores.views import rd_server
 from infopublic_mail.extensions import login
 from infopublic_mail.extras import functions
 from infopublic_mail.extensions.forms import BuscarForm, Cadastro, EnviaButton, Cadastro_user_entidade
@@ -51,6 +52,12 @@ def index():
     tickets = Ticket.query.all()
     num_abertos = []
     num_fechados = []
+    cursor, _ = functions.connect(database_name)
+    records = functions.entidades_por_servidor(cursor)
+    srv01 = records[0][1]
+    srv02 = records[1][1]
+    rd_server = records[2][1]
+    local = records[3][1]
     for ticket in tickets:
         if ticket.fechado:
             num_fechados.append(ticket)
@@ -65,7 +72,8 @@ def index():
         else:
             return render_template('404.html'), 404 
     return render_template('index.html', form=form, current_time=datetime.utcnow(),
-                            num_abertos=len(num_abertos), num_fechados=len(num_fechados))
+                            num_abertos=len(num_abertos), num_fechados=len(num_fechados),
+                            srv01=srv01, srv02=srv02, rd_server=rd_server, local=local)
 
 @bp.route('/user/<int:id>', methods=['GET', 'POST'])
 @login_required

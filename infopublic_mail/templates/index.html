@@ -24,11 +24,6 @@
         background-size: cover;
         background-position: center;
     }
-    #servidores{
-        background-image: url("{{ url_for('static', filename='img/servidors.jpeg') }}");
-        background-size: cover;
-        background-position: center;
-    }
 </style>
 {% endblock %}
 
@@ -64,22 +59,51 @@
         <div class="jumbotron" id="servidores">
             <div class="container-fluid">
                 <div class="row">
-                    <p style="text-align: center; color: white;">Pesquisa por servidores</p>
+                    <p style="text-align: center; color: black;">
+                        Geração de relatórios por servidor
+                    </p>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
-                        <p style="text-align: center; color: white;">
+                    <div class="col-md-3">
+                        <p style="text-align: center; color: black;">
                             <a href="{{ url_for('servidor.srv01') }}">ts01-Hostdime</a>
                         </p>
                     </div>
-                    <div class="col-md-4">
-                        <p style="text-align: center; color: white;">
+                    <div class="col-md-3">
+                        <p style="text-align: center; color: black;">
                             <a href="{{ url_for('servidor.srv02') }}">ts02-50025</a>
                         </p>
                     </div>
-                    <div class="col-md-4">
-                        <p style="text-align: center; color: white;">
+                    <div class="col-md-3">
+                        <p style="text-align: center; color: black;">
                             <a href="{{ url_for('servidor.rd_server') }}">RD_Server</a>
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <p style="text-align: center; color: black;">
+                            <a href="{{ url_for('servidor.local') }}">Local</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p style="text-align: center; color: black;">
+                            {{ srv01 }}
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <p style="text-align: center; color: black;">
+                            {{ srv02 }}
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <p style="text-align: center; color: black;">
+                            {{ rd_server }}
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <p style="text-align: center; color: black;">
+                            {{ local }}
                         </p>
                     </div>
                 </div>
