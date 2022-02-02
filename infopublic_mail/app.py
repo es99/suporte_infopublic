@@ -2,6 +2,7 @@ from flask import Flask
 from infopublic_mail import blueprints
 from infopublic_mail.blueprints import auth
 from infopublic_mail.blueprints import tickets
+from infopublic_mail.blueprints import servidores
 from config import config
 from infopublic_mail.extensions import bootstrap
 from infopublic_mail.extensions import db
@@ -19,6 +20,7 @@ def create_app(config_name):
     blueprints.init_app(app)
     auth.init_app(app)
     tickets.init_app(app)
+    servidores.init_app(app)
     login.init_app(app)
     db.init_app(app)
     bootstrap.init_app(app)
