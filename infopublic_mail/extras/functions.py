@@ -23,6 +23,32 @@ def entidades_por_servidor(cursor):
     records = cursor.fetchall()
     return records
 
+def sistemas_por_servidor(cursor, id_servidor):
+    sql = "SELECT local, sistema, COUNT(*), \
+                    CASE \
+	                    WHEN entidades.sistema = 1 THEN 'PJPCTB-Contabilidade' \
+	                    WHEN entidades.sistema = 2 THEN 'PJFOLHA' \
+	                    WHEN entidades.sistema = 3 THEN 'TRIBUTOS' \
+	                    WHEN entidades.sistema = 4 THEN 'PJFROTA' \
+	                    WHEN entidades.sistema = 5 THEN 'PJCHEQUE' \
+	                    WHEN entidades.sistema = 6 THEN 'DOAÇÃO' \
+	                    WHEN entidades.sistema = 8 THEN 'TOMBAMENTO' \
+                    END AS Sistema \
+                    FROM entidades \
+                    WHERE local={} \
+                    GROUP BY sistema;".format(id_servidor)
+    cursor.execute(sql)
+    records = cursor.fetchall()
+    return records
+
+def gera_relatorio_sistema(cursor, servidor, sistema):
+    sql = "SELECT codigo, nome \
+        FROM entidades \
+        WHERE local={} AND sistema={}".format(servidor, sistema)
+    cursor.execute(sql)
+    records = cursor.fetchall()
+    return records
+
 def consulta_id(cursor, id):
     sql_usuario = "SELECT id, cpf, nome, telefone, email, senha FROM usuarios WHERE id={}".format(id)
     sql_senha_sistema = "SELECT senha_sistema FROM users WHERE user={}".format(id)

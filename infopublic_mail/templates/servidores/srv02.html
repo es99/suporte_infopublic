@@ -5,5 +5,23 @@
 {% endblock%}
 
 {% block page_content %}
-    <p>Em construção</p>
+<div class="container-fluid">
+    <div class="row">
+        <table class="table">
+            <tbody class="info">
+                <th>Quantidade</th>
+                <th>Sistema</th>
+            {% for row in records %}
+                <tr class="info">
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                </tr>
+            {% endfor %}
+                <tr>
+                    <td><a>Gerar relatório</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}

@@ -54,9 +54,9 @@ def index():
     num_fechados = []
     cursor, _ = functions.connect(database_name)
     records = functions.entidades_por_servidor(cursor)
-    srv01 = records[0][1]
+    srv01 = records[2][1]
     srv02 = records[1][1]
-    rd_server = records[2][1]
+    rd_server = records[0][1]
     local = records[3][1]
     for ticket in tickets:
         if ticket.fechado:

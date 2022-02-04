@@ -5,5 +5,28 @@
 {% endblock%}
 
 {% block page_content %}
-    <p>Em construção</p>
+    <div class="container-fluid">
+        <div class="row">
+            <table class="table">
+                <tbody class="info">
+                    <th>Quantidade</th>
+                    <th>ID</th>
+                    <th>Sistema</th>
+                {% for row in records %}
+                    <tr class="info">
+                        <td>{{ row[2] }}</td>
+                        <td>{{ row[1] }}</td>
+                        <td>{{ row[3] }}</td>
+                        <td>
+                            <a href="{{ url_for('servidor.srv01_sistema', sistema=row[1]) }}">Ver</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                    <tr>
+                        <td><a>Gerar relatório</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}
