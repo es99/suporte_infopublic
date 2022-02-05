@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block page_header %}
+    <h1>Sistemas Locais<h1>
+{% endblock%}
+
+{% block page_content %}
+    <div class="container-fluid">
+        <div class="row">
+            <a href="{{ url_for('servidor.local') }}">Voltar</a>
+        </div>
+        <div class="row">
+            <table class="table">
+                <tbody class="info">
+                    <th>Código</th>
+                    <th>Nome</th>
+                    {% for row in records %}
+                        <tr class="info">
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

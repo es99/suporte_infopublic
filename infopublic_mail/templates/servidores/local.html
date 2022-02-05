@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block page_header %}
-    <h1>Local<h1>
+    <h1>Sistemas Locais<h1>
 {% endblock%}
 
 {% block page_content %}
@@ -10,11 +10,16 @@
             <table class="table">
                 <tbody class="info">
                     <th>Quantidade</th>
+                    <th>ID</th>
                     <th>Sistema</th>
                 {% for row in records %}
                     <tr class="info">
                         <td>{{ row[2] }}</td>
+                        <td>{{ row[1] }}</td>
                         <td>{{ row[3] }}</td>
+                        <td>
+                            <a href="{{ url_for('servidor.local_sistema', sistema=row[1]) }}">Ver</a>
+                        </td>
                     </tr>
                 {% endfor %}
                     <tr>

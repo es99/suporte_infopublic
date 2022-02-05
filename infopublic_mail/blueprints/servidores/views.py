@@ -1,4 +1,3 @@
-import re
 from flask import Blueprint, render_template
 from flask_login import login_required
 from infopublic_mail.extras import functions
@@ -20,6 +19,20 @@ def srv01_sistema(sistema):
     records = functions.gera_relatorio_sistema(cursor, 3, sistema)
     return render_template('servidores/srv01_sistema.html', records=records)
 
+@servidor.route('/srv02/<int:sistema>', methods=['GET', 'POST'])
+@login_required
+def srv02_sistema(sistema):
+    cursor, _ = functions.connect(database_name)
+    records = functions.gera_relatorio_sistema(cursor, 2, sistema)
+    return render_template('servidores/srv02_sistema.html', records=records)
+
+@servidor.route('/rd_server/<int:sistema>', methods=['GET', 'POST'])
+@login_required
+def rdserver_sistema(sistema):
+    cursor, _ = functions.connect(database_name)
+    records = functions.gera_relatorio_sistema(cursor, 1, sistema)
+    return render_template('servidores/rdserver_sistema.html', records=records)
+
 @servidor.route('/srv02', methods=['GET', 'POST'])
 @login_required
 def srv02():
@@ -33,6 +46,13 @@ def rd_server():
     cursor, _ = functions.connect(database_name)
     records = functions.sistemas_por_servidor(cursor, 1)
     return render_template('servidores/rd_server.html', records=records)
+
+@servidor.route('/entidades_local/<int:sistema>', methods=['GET', 'POST'])
+@login_required
+def local_sistema(sistema):
+    cursor, _ = functions.connect(database_name)
+    records = functions.gera_relatorio_sistema(cursor, 5, sistema)
+    return render_template('servidores/local_sistema.html', records=records)
 
 @servidor.route('/entidades_local', methods=['GET', 'POST'])
 @login_required
