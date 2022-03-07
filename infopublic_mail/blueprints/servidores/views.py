@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template
+import csv
+from flask import Blueprint, render_template, Response, flash
 from flask_login import login_required
 from infopublic_mail.extras import functions
 
@@ -46,6 +47,22 @@ def rd_server():
     cursor, _ = functions.connect(database_name)
     records = functions.sistemas_por_servidor(cursor, 1)
     return render_template('servidores/rd_server.html', records=records)
+
+@servidor.route('/rd_server_csv', methods=['GET', 'POST'])
+@login_required
+def rd_server_csv():
+    cursor, _ = functions.connect(database_name)
+    if functions.relatorio_servidor(cursor, 1):
+        with open('relatorio.csv') as fileCsv:
+            csv = fileCsv.read()
+        
+        return Response(
+            csv,
+            mimetype="text/csv",
+            headers={
+                "Content-disposition":"attachment; filename=relatorio_rd.csv"
+            })
+
 
 @servidor.route('/entidades_local/<int:sistema>', methods=['GET', 'POST'])
 @login_required

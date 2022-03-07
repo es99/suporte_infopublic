@@ -1,3 +1,4 @@
+import csv
 import sqlite3
 from flask_mail import Message
 from flask import render_template
@@ -115,6 +116,26 @@ def insere_usuario(cursor, conn, **kwargs):
     try:
         cursor.execute(sql)
         conn.commit()
+        return True
+    except:
+        return False
+
+def relatorio_servidor(cursor, num_servidor):
+    """Funcão que gera um documento csv a partir do numero do servidor
+    juntamente com um SELECT no banco de dados."""
+
+    sql = "SELECT nome, codigo, comentario FROM entidades WHERE local={}".format(num_servidor)
+    cursor.execute(sql)
+    dados = cursor.fetchall()
+    
+    try:
+        with open('relatorio.csv', 'w', newline='', encoding='utf-8') as csvFile:
+            w = csv.writer(csvFile)
+            w.writerow(['entidade', 'cod', 'comentario'])
+        
+            for row in dados:
+                linha = list(row)
+                w.writerow(linha)
         return True
     except:
         return False
